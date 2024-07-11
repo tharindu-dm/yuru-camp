@@ -1,7 +1,12 @@
-import React, { useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Typography, Card, CardContent, Grid, Container } from '@mui/material';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { ThemeContext } from '../Contexts/ThemeContext';
+
+const fadeIn = keyframes`
+  from { opacity: 0; }
+  to { opacity: 1; }
+`;
 
 const HeroSection = styled.div`
   background-image: url(${props => props.backgroundImage});
@@ -12,6 +17,10 @@ const HeroSection = styled.div`
   align-items: center;
   justify-content: center;
   position: relative;
+`;
+
+const AnimatedSection = styled.div`
+  animation: ${fadeIn} 1s ease-in;
 `;
 
 const HeroOverlay = styled.div`
@@ -35,7 +44,25 @@ const Section = styled.section`
 
 const Home = () => {
   const { theme } = useContext(ThemeContext);
-  const backgroundImage = '/path/to/your/image.jpg'; // Update this path
+  const [welcomeMessage, setWelcomeMessage] = useState('');
+  const [currentTime, setCurrentTime] = useState(new Date());
+  const backgroundImage = '/bg.png';
+  
+  // Initialize welcome message based on time of day
+  useEffect(() => {
+    const hour = new Date().getHours();
+    if (hour < 12) setWelcomeMessage('Good morning');
+    else if (hour < 18) setWelcomeMessage('Good afternoon');
+    else setWelcomeMessage('Good evening');
+  }, []);
+
+  // Update clock every second
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
 
   const campFeatures = [
     "Scenic mountain views",
@@ -53,18 +80,15 @@ const Home = () => {
   return (
     <div>
       <HeroSection backgroundImage={backgroundImage}>
-        <HeroOverlay />
         <HeroContent>
-          <Typography 
-            variant="h2" 
-            component="h1" 
-            style={{ 
-              color: 'white', 
-              textShadow: theme === 'light' ? '2px 2px 4px rgba(0,0,0,0.7)' : 'none'
-            }}
-          >
-            Welcome to Yuru Camper
-          </Typography>
+          <AnimatedSection>
+            <Typography variant="h2" component="h1" style={{color: 'white'}}>
+              {welcomeMessage}, Welcome to Yuru Camper
+            </Typography>
+            <Typography variant="h4" style={{color: 'white'}}>
+              Current time: {currentTime.toLocaleTimeString()}
+            </Typography>
+          </AnimatedSection>
         </HeroContent>
       </HeroSection>
 

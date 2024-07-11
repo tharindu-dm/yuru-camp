@@ -17,9 +17,9 @@ const Contact = () => {
       <ContactForm />
       <Paper style={{ padding: 20, marginTop: 20 }}>
         <Typography variant="h6">Our Office</Typography>
-        <Typography>123 Main St, Anytown, USA 12345</Typography>
-        <Typography>Phone: (123) 456-7890</Typography>
-        <Typography>Email: info@example.com</Typography>
+        <Typography>Mt. Fuji, Tokyo, Japan</Typography>
+        <Typography>Phone: (+911)119-118-1919</Typography>
+        <Typography>Email: info@yuruer.com</Typography>
       </Paper>
     </div>
   );
