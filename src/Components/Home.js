@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Typography, Card, CardContent, Grid, Container } from '@mui/material';
 import styled, { keyframes } from 'styled-components';
-import { ThemeContext } from '../Contexts/ThemeContext';
 
 const fadeIn = keyframes`
   from { opacity: 0; }
@@ -23,14 +22,6 @@ const AnimatedSection = styled.div`
   animation: ${fadeIn} 1s ease-in;
 `;
 
-const HeroOverlay = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-`;
 
 const HeroContent = styled.div`
   position: relative;
@@ -43,7 +34,6 @@ const Section = styled.section`
 `;
 
 const Home = () => {
-  const { theme } = useContext(ThemeContext);
   const [welcomeMessage, setWelcomeMessage] = useState('');
   const [currentTime, setCurrentTime] = useState(new Date());
   const backgroundImage = '/bg.png';
